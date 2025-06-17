@@ -59,5 +59,8 @@ dependencies {
     val ver = "3.0.0"
     implementation("com.squareup.retrofit2:retrofit:$ver")
     implementation("com.squareup.retrofit2:converter-gson:$ver")
+    implementation ("androidx.compose.runtime:runtime-livedata:1.8.2")
+    val nav_version = "2.9.0"
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 
 }

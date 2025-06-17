@@ -12,7 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.weatherdrop.ui.screens.SearchScreen
+import com.example.weatherdrop.ui.screens.WeatherDisplay
 import com.example.weatherdrop.ui.theme.WeatherDropTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +25,15 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         val weatherVm = ViewModelProvider(this)[WeatherVm::class.java]
         setContent {
-            SearchScreen(weatherVm)
+            val navControl = rememberNavController()
+            NavHost(navController = navControl, startDestination = "search") {
+                composable("search",) {
+                    SearchScreen(weatherVm, navControl)
+                }
+                composable("weather",) {
+                    WeatherDisplay(weatherVm)
+                }
+            }
         }
     }
 }
