@@ -18,6 +18,7 @@ import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,6 +30,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weatherdrop.R
@@ -127,40 +129,48 @@ fun WeatherDetails(data : WeatherModel){
                     .size(400.dp)
 
             ) {
-                Column (
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(20.dp)
-                )
-                {
-                    Row (
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        .padding(16.dp)
+                ){
+                    WeatherMetric(
+                        leftLabel = "Humidity",
+                        leftValue = "${data.current.humidity} %",
+                        rightLabel = "Wind Speed",
+                        rightValue = "${data.current.wind_mph} mph",
+                        leftWeight = 1f,
+                        rightWeight = 1.1f,
+                        horizontalGap = 100.dp
                     )
-                    {
-                        WeatherMetric("Humidity", "${data.current.humidity} %")
-                        WeatherMetric("Wind", "${data.current.wind_mph} mph")
-                    }
-                    Row (
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                    HorizontalDivider(
+                        color = Color.White,
+                        thickness = 1.dp,
+                        modifier = Modifier.padding(vertical = 10.dp)
                     )
-                    {
-                       WeatherMetric("Precipitation", "${data.current.precip_in} in")
-                       WeatherMetric("UV Index", data.current.uv)
-                    }
-                    Row (
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                    WeatherMetric(
+                        leftLabel = "Precipitation",
+                        leftValue = "${data.current.precip_in} in",
+                        rightLabel = "UV Index",
+                        rightValue = data.current.uv,
+                        leftWeight = 1.2f,
+                        rightWeight = 1f,
+                        horizontalGap = 70.dp
                     )
-                    {
-                        WeatherMetric("Pressure", data.current.pressure_in + " in")
-                        WeatherMetric("Visibility", "${data.current.vis_miles} mi")
-                    }
+                    HorizontalDivider(
+                        color = Color.White,
+                        thickness = 1.dp,
+                        modifier = Modifier.padding(vertical = 10.dp)
+                    )
+                    WeatherMetric(
+                        leftLabel = "Pressure",
+                        leftValue = "${data.current.pressure_in} in",
+                        rightLabel = "Visibility",
+                        rightValue = "${data.current.vis_miles} mi",
+                        leftWeight = 1f,
+                        rightWeight = 1f,
+                        horizontalGap = 100.dp
+                    )
                 }
             }
         }
@@ -168,17 +178,58 @@ fun WeatherDetails(data : WeatherModel){
 }
 
 @Composable
-fun WeatherMetric(label: String, value: String){
-    Column {
-        Text(text = label,
-            color = Color.White,
-            fontFamily = ManRope ,
-            fontSize = 24.sp
-        )
-        Text(text = value,
-            color = Color.White,
-            fontFamily = ManRope,
-            fontSize = 20.sp
-        )
+fun WeatherMetric(leftLabel: String,
+                  leftValue: String,
+                  rightLabel: String,
+                  rightValue: String,
+                  leftWeight: Float,
+                  rightWeight: Float,
+                  horizontalGap : Dp
+)
+    {
+    Row (
+        modifier = Modifier
+            .fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(
+            modifier = Modifier
+                .weight(leftWeight),
+            horizontalAlignment = Alignment.Start
+        ) {
+            Text(
+                text = leftLabel,
+                color = Color.White,
+                fontFamily = ManRope,
+                fontSize = 24.sp
+            )
+            Spacer(modifier = Modifier.height(1.dp))
+            Text(
+                text = leftValue,
+                color = Color.White,
+                fontFamily = ManRope,
+                fontSize = 20.sp
+            )
+        }
+        Spacer(modifier = Modifier.width(horizontalGap))
+        Column(
+            modifier = Modifier
+                .weight(rightWeight),
+            horizontalAlignment = Alignment.Start
+        ) {
+            Text(
+                text = rightLabel,
+                color = Color.White,
+                fontFamily = ManRope,
+                fontSize = 24.sp
+            )
+            Spacer(modifier = Modifier.height(1.dp))
+            Text(
+                text = rightValue,
+                color = Color.White,
+                fontFamily = ManRope,
+                fontSize = 20.sp
+            )
+        }
     }
 }
