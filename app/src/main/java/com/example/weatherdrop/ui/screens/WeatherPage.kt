@@ -232,9 +232,11 @@ fun WeatherMetric(leftLabel: String,
 }
 @Composable
 fun BackgroundImage(data: WeatherModel){
+
     val condition = data.current.condition.text.lowercase()
-        when {
-            condition.contains("sunny", ignoreCase = true) -> {
+    when {
+
+        condition.contains("sunny", ignoreCase = true) -> {
                 Image(
                     painter = painterResource(R.drawable.sunny_bg),
                     contentDescription = null,
