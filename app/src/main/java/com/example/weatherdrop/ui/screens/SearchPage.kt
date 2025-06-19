@@ -37,7 +37,6 @@ import com.example.weatherdrop.ui.theme.ManRope
 fun SearchScreen(viewModel: WeatherVm, navController: NavController) {
     var city by remember { mutableStateOf("") }
 
-
     Box(
         modifier = Modifier
             .fillMaxSize()

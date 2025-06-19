@@ -1,7 +1,7 @@
 package com.example.weatherdrop.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,11 +28,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.weatherdrop.R
 import com.example.weatherdrop.WeatherVm
 import com.example.weatherdrop.api.NetworkResponse
@@ -41,13 +43,14 @@ import com.example.weatherdrop.ui.theme.ManRope
 
 
 @Composable
-fun WeatherDisplay(viewModel: WeatherVm){
+fun WeatherDisplay(viewModel: WeatherVm, navController: NavController){
 
     val weatherResult = viewModel.weatherData.observeAsState()
-
+    val context = LocalContext.current
     when(val result = weatherResult.value){
         is NetworkResponse.Error -> {
-            Text(text = result.message)
+                Toast.makeText(context, result.message, Toast.LENGTH_LONG).show()
+                navController.navigate("search")
         }
         is NetworkResponse.Loading -> {
             Box(
@@ -72,18 +75,12 @@ fun WeatherDetails(data : WeatherModel){
         modifier = Modifier
             .fillMaxSize()
     ){
-        Image(
-            painter = painterResource(R.drawable.sunny_bg),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxSize()
-                .alpha(0.5f)
-        )
+            BackgroundImage(data)
+
         Box(
             modifier = Modifier
                 .size(300.dp)
-                .padding(top = 32.dp, start = 10.dp)
+                .padding(top = 32.dp, start = 16.dp)
 
 
         ){
@@ -232,4 +229,73 @@ fun WeatherMetric(leftLabel: String,
             )
         }
     }
+}
+@Composable
+fun BackgroundImage(data: WeatherModel){
+    val condition = data.current.condition.text.lowercase()
+        when {
+            condition.contains("sunny", ignoreCase = true) -> {
+                Image(
+                    painter = painterResource(R.drawable.sunny_bg),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize().alpha(0.5f)
+                )
+            }
+
+            condition.contains("cloud", ignoreCase = true) -> {
+                Image(
+                    painter = painterResource(R.drawable.cloudy_bg),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize().alpha(0.5f)
+                )
+            }
+
+            condition.contains("clear", ignoreCase = true) -> {
+                Image(
+                    painter = painterResource(R.drawable.clear_bg),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize().alpha(0.5f)
+                )
+            }
+
+            condition.contains("mist", ignoreCase = true) -> {
+                Image(
+                    painter = painterResource(R.drawable.misty_bg),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize().alpha(0.5f)
+                )
+            }
+
+            condition.contains("rain", ignoreCase = true) -> {
+                Image(
+                    painter = painterResource(R.drawable.rainy_bg),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize().alpha(0.5f)
+                )
+            }
+
+            condition.contains("snow", ignoreCase = true) -> {
+                Image(
+                    painter = painterResource(R.drawable.snowy_bg),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize().alpha(0.5f)
+                )
+            }
+
+            condition.contains("storm", ignoreCase = true) -> {
+                Image(
+                    painter = painterResource(R.drawable.stormy_bg),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize().alpha(0.5f)
+                )
+            }
+        }
+
 }

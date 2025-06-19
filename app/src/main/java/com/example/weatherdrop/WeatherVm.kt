@@ -10,6 +10,8 @@ import com.example.weatherdrop.api.NetworkResponse
 import com.example.weatherdrop.api.RetrofitInstance
 import com.example.weatherdrop.api.WeatherModel
 import kotlinx.coroutines.launch
+import okio.IOException
+import java.net.SocketTimeoutException
 
 class WeatherVm : ViewModel() {
     private val weatherApi = RetrofitInstance.weatherApi
@@ -20,16 +22,38 @@ class WeatherVm : ViewModel() {
         _weatherData.value = NetworkResponse.Loading
         viewModelScope.launch {
 
-            val response = weatherApi.getWeather(Key.apikey, city)
+            try {
 
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    _weatherData.value = NetworkResponse.Success(it)
+
+                val response = weatherApi.getWeather(Key.apikey, city)
+
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        _weatherData.value = NetworkResponse.Success(it)
+                    } ?: run {
+                        _weatherData.value =
+                            NetworkResponse.Error("Empty response from the server.")
+                    }
+                } else {
+                    val message = when (response.code()) {
+                        400 -> "Bad Request"
+                        401 -> "Unauthorized"
+                        403 -> "Forbidden"
+                        404 -> "Not Found"
+                        else -> "Server Error: ${response.code()}"
+                    }
+                    _weatherData.value = NetworkResponse.Error(message)
+
                 }
-            } else {
-                _weatherData.value = NetworkResponse.Error("Failed to fetch data")
+            } catch (e: IOException) {
+                _weatherData.value = NetworkResponse.Error("No Internet connection")
             }
-
+            catch (e: SocketTimeoutException){
+                _weatherData.value = NetworkResponse.Error("Connection Timeout")
+            }
+            catch (e: Exception) {
+                _weatherData.value = NetworkResponse.Error(e.localizedMessage ?: "Unknown error")
+            }
         }
     }
 }
