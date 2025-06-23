@@ -59,8 +59,10 @@ dependencies {
     val ver = "3.0.0"
     implementation("com.squareup.retrofit2:retrofit:$ver")
     implementation("com.squareup.retrofit2:converter-gson:$ver")
-    implementation ("androidx.compose.runtime:runtime-livedata:1.8.2")
+    implementation ("androidx.compose.runtime:runtime-livedata:1.8.3")
     val nav_version = "2.9.0"
     implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation("io.coil-kt.coil3:coil-compose:3.2.0")
+    implementation("io.coil-kt.coil3:coil-network-okhttp:3.2.0")
 
 }
