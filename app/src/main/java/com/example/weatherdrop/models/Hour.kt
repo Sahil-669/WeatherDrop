@@ -1,4 +1,4 @@
-package com.example.weatherdrop.api
+package com.example.weatherdrop.models
 
 data class Hour(
     val chance_of_rain: Int,

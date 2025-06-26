@@ -44,7 +44,7 @@ import coil3.compose.AsyncImage
 import com.example.weatherdrop.R
 import com.example.weatherdrop.WeatherVm
 import com.example.weatherdrop.api.NetworkResponse
-import com.example.weatherdrop.api.WeatherModel
+import com.example.weatherdrop.models.WeatherModel
 import com.example.weatherdrop.ui.theme.ManRope
 
 
@@ -203,8 +203,10 @@ fun WeatherDetails(data : WeatherModel){
         }
             Box(
                 modifier = Modifier
-                    .size(400.dp, 300.dp)
                     .align(Alignment.BottomCenter)
+                    .wrapContentHeight()
+                    .fillMaxWidth()
+
 
             ) {
                 Card(
@@ -213,9 +215,8 @@ fun WeatherDetails(data : WeatherModel){
                         containerColor = Color.DarkGray.copy(alpha = 0.5f)
                     ),
                     modifier = Modifier
-
-                        .size(400.dp)
-
+                        .fillMaxWidth()
+                        .height(300.dp)
                 ) {
                     Column(
                         modifier = Modifier

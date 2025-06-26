@@ -8,7 +8,7 @@ object RetrofitInstance {
 
     private const val URL = "https://api.weatherapi.com";
 
-    fun getInstance() : Retrofit{
+     fun getInstance() : Retrofit{
         return Retrofit.Builder()
             .baseUrl(URL)
             .addConverterFactory(GsonConverterFactory.create())

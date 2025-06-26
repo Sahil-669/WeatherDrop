@@ -1,4 +1,4 @@
-package com.example.weatherdrop.api
+package com.example.weatherdrop.models
 
 data class Forecastday(
     val astro: Astro,
