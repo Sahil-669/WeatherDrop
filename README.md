@@ -27,6 +27,7 @@ Retrofit2 – For API calls
 Clone the repository:
 
 git clone https://github.com/<your-username>/WeatherDrop.git
+
 cd WeatherDrop
 
 
