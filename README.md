@@ -33,9 +33,9 @@ cd WeatherDrop
 
 Open the project in Android Studio.
 
-Add your API key in Api directory:
+Add your API key in Api directory and then the Key.kt file:
 
-const val WEATHER_API_KEY = "your_api_key_here"
+val apikey = "your_api_key_here"
 
 
 Build & run the app on your emulator/device.
