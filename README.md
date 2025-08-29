@@ -51,13 +51,6 @@ Forecasts
 
 City Autocomplete
 
-📂 Project Structure
-WeatherDrop/
- ├── data/             # Data sources (API, models, repositories)
- ├── ui/               # Composables for UI screens
- ├── viewmodel/        # ViewModel for state handling
- ├── di/               # Dependency Injection (if using Hilt)
- └── utils/            # Helper classes
 
 🖼️ Future Improvements
 
