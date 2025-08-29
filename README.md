@@ -42,14 +42,7 @@ Build & run the app on your emulator/device.
 
 📡 API Used
 
-This project uses WeatherAPI
- (or whichever you’re using).
-
-Current Weather
-
-Forecasts
-
-City Autocomplete
+This project uses WeatherAPI.
 
 
 🖼️ Future Improvements
