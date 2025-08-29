@@ -33,7 +33,7 @@ cd WeatherDrop
 
 Open the project in Android Studio.
 
-Add your API key in local.properties or Constants.kt:
+Add your API key in Api directory:
 
 const val WEATHER_API_KEY = "your_api_key_here"
 
