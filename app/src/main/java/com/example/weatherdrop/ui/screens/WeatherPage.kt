@@ -327,8 +327,7 @@ fun BackgroundImage(data: WeatherModel){
 
     val condition = data.current.condition.text.lowercase()
     when {
-
-        condition.contains("sunny", ignoreCase = true) -> {
+            condition.contains("sunny", ignoreCase = true) -> {
                 Image(
                     painter = painterResource(R.drawable.sunny_bg),
                     contentDescription = null,
@@ -337,7 +336,7 @@ fun BackgroundImage(data: WeatherModel){
                         .fillMaxSize()
                         .alpha(0.5f)
                 )
-        }
+            }
 
             condition.contains("cloud", ignoreCase = true) -> {
                 Image(
@@ -425,7 +424,7 @@ fun BackgroundImage(data: WeatherModel){
                         .alpha(0.5f)
                 )
             }
-        condition.contains("thunder", ignoreCase = true) -> {
+            condition.contains("thunder", ignoreCase = true) -> {
             Image(
                 painter = painterResource(R.drawable.stormy_bg),
                 contentDescription = null,
@@ -433,7 +432,7 @@ fun BackgroundImage(data: WeatherModel){
                 modifier = Modifier
                     .fillMaxSize()
                     .alpha(0.5f)
-            )
-        }
+                )
+            }
     }
 }

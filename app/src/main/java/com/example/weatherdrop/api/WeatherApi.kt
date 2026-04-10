@@ -10,14 +10,14 @@ interface WeatherApi {
 
     @GET("/v1/forecast.json")
     suspend fun getWeather(
-        @Query("Key") key: String,
+        @Query("key") key: String,
         @Query("q") city: String,
         @Query("days") days: Int = 1
     ): Response<WeatherModel>
 
     @GET("/v1/search.json")
     suspend fun getCitySuggestions(
-        @Query("Key") key: String,
+        @Query("key") key: String,
         @Query("q") query: String
     ) : Response<List<CitySuggestion>>
 }

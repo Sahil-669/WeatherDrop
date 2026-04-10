@@ -50,10 +50,10 @@ class WeatherVm : ViewModel() {
                     _weatherData.value = NetworkResponse.Error(message)
 
                 }
-            } catch (e: IOException) {
+            } catch (_: IOException) {
                 _weatherData.value = NetworkResponse.Error("No Internet connection")
             }
-            catch (e: SocketTimeoutException){
+            catch (_: SocketTimeoutException){
                 _weatherData.value = NetworkResponse.Error("Connection Timeout")
             }
             catch (e: Exception) {
@@ -72,7 +72,7 @@ class WeatherVm : ViewModel() {
                 else {
                     _citySuggestions.value = emptyList()
                 }
-            } catch (e : Exception) {
+            } catch (_ : Exception) {
                     _citySuggestions.value = emptyList()
             }
         }
